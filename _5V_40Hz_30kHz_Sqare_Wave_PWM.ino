@@ -22,20 +22,18 @@ void setup() {
 }
 
 void loop() {
-  
- if (elapsed > 10000) // Only do this part after 10 ish milliseconds has elapsed
- {
- elapsed = 0; // resets the elapsed time to zero
-  sensorValue = analogRead(sensorPin); // reads the analog value of pot and converts it to a value between 0 at 0 volts and 1024 at 5 volts
- pwmValue = map(sensorValue, 0, 1024, 0, 255); // asigns a value to pwm by converting the 0-1024 value above to 0-255 that the pwmPin uses to determine duty cycle 0 = 0%; 255 = 100
-  delayValue = map(sensorValue, 0, 1024, 10, 10000); // asigns a value to the delay by converting the 0-1024 sensorValue to 10-10000 which gives us a output frequency of 30kHz to 40Hz
-  analogWrite (pwmPin, pwmValue); // this sets the duty cycle of the pwm pin to whatever the pot is set to between 0 and 100 percent
- }
-  
-  
-  digitalWrite(squarepulsePin, HIGH); // this is the on pulse
+    if (elapsed > 10000) // Only do this part after 10 ish milliseconds has elapsed
+    {
+        elapsed = 0; // resets the elapsed time to zero
+        sensorValue = analogRead(sensorPin); // reads the analog value of pot and converts it to a value between 0 at 0 volts and 1024 at 5 volts
+        pwmValue = map(sensorValue, 0, 1024, 0, 255); // asigns a value to pwm by converting the 0-1024 value above to 0-255 that the pwmPin uses to determine duty cycle 0 = 0%; 255 = 100
+        delayValue = map(sensorValue, 0, 1024, 10, 10000); // asigns a value to the delay by converting the 0-1024 sensorValue to 10-10000 which gives us a output frequency of 30kHz to 40Hz
+        analogWrite (pwmPin, pwmValue); // this sets the duty cycle of the pwm pin to whatever the pot is set to between 0 and 100 percent
+    }
+
+    digitalWrite(squarepulsePin, HIGH); // this is the on pulse
     delayMicroseconds(delayValue); // this is how long the on pulse is active in microseconds (0.001 milliseconds)
-   digitalWrite(squarepulsePin, LOW); // this turns the pulse off
-  delayMicroseconds(delayValue); // this is how long the pulse remains off
- elapsed += 2 * delayValue; // this adds the time spent doing on/off to the elapsed time. 
+    digitalWrite(squarepulsePin, LOW); // this turns the pulse off
+    delayMicroseconds(delayValue); // this is how long the pulse remains off
+    elapsed += 2 * delayValue; // this adds the time spent doing on/off to the elapsed time. 
 }
